@@ -1,10 +1,11 @@
 import { Request, Response } from 'express'
+import { getAnimes } from '../services/animeServices'
 
 //@desc Get All Animes
 //@route GET /api/animes
 //@access public
 const getAllAnimes = (req: Request, res: Response) => {
-  res.status(200).json({ message: 'Get all animes' })
+  res.send(getAnimes())
 }
 
 //@desc Create New Anime
