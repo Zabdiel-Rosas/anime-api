@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "Classroom Of The Elite",
+    "type": "tv series",
+    "studios": "Lerche",
+    "genre": ["Drama", "School", "Slice Of Life", "Psychological"],
+    "scores": 7.86,
+    "status": "Finished Airing"
+  },
+  {
+    "id": 2,
+    "name": "Fairy Tail Ova 1",
+    "type": "OVA",
+    "studios": "Satelight",
+    "genre": ["Comedy", "Fantasy", "Ecchi", "Magic", "Shounen"],
+    "scores": 4.9,
+    "status": "Finished Airing"
+  },
+  {
+    "id": 3,
+    "name": "Digimon: The Movie",
+    "type": "Movie",
+    "studios": "Toei Animation",
+    "genre": ["Adventure", "Fantasy", "Kids", "Sci-Fi"],
+    "scores": 7.13,
+    "status": "Finished Airing"
+  },
+  {
+    "id": 4,
+    "name": "Naruto",
+    "type": "tv series",
+    "studios": "Studio Pierrot",
+    "genre": ["Action", "Adventure", "Comedy", "Martial Arts"],
+    "scores": 6.22,
+    "status": "Finished Airing"
+  },
+  {
+    "id": 5,
+    "name": "Grimgar: Ashes and Illusions",
+    "type": "tv series",
+    "studios": "A-1 Pictures",
+    "genre": ["Action", "Adventure", "Drama", "Fantasy", "Isekai"],
+    "scores": 7.71,
+    "status": "Finished Airing"
+  },
+  {
+    "id": 6,
+    "name": "Jujutsu Kaisen 0 Movie",
+    "type": "Movie",
+    "studios": "",
+    "genre": ["Action", "Demons", "Shounen", "Supernatural"],
+    "scores": 8.53,
+    "status": "Finished Airing"
+  },
+  {
+    "id": 7,
+    "name": "The Unwanted Undead Adventurer",
+    "type": "tv series",
+    "studios": "Connect",
+    "genre": ["Action", "Adventure", "Fantasy"],
+    "scores": 7.64,
+    "status": "Currently Airing"
+  },
+  {
+    "id": 8,
+    "name": "Solo Leveling",
+    "type": "tv series",
+    "studios": "A-1 Pictures",
+    "genre": ["Action", "Adventure", "Fantasy"],
+    "scores": 7.66,
+    "status": "Currently Airing"
+  }
+]
