@@ -1,4 +1,5 @@
 export type AnimeType = 'TV Series' | 'Movie' | 'OVA' | 'ONA' | 'Special'
+export type Status = 'Currently Airing' | 'Finished Airing' | 'Not Yet Airing'
 
 export enum Genre {
   action = 'Action',
@@ -24,4 +25,8 @@ export interface Anime {
   type: AnimeType
   studios: string
   genre: Genre[]
+  scores: number
+  status: Status
 }
+
+export type NewAnime = Omit<Anime, 'id'>
