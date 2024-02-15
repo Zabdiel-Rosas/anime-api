@@ -12,14 +12,15 @@ import {
 //@route GET /api/animes
 //@access public
 const getAllAnimes = (req: Request, res: Response) => {
-  res.send(getAnimes())
+  res.status(200).json(getAnimes())
 }
 
 //@desc Create New Anime
 //@route POST /api/animes
 //@access public
 const createNewAnime = (req: Request, res: Response) => {
-  res.send(addAnime(req.body))
+  const createdAnime = addAnime(req.body)
+  res.status(201).json(createdAnime)
 }
 
 //@desc Get Anime By Id
@@ -27,7 +28,9 @@ const createNewAnime = (req: Request, res: Response) => {
 //@access public
 const getAnimeById = (req: Request, res: Response) => {
   const id = Number(req.params.id)
-  res.send(getOneAnime(id))
+  const anime = getOneAnime(id)
+
+  anime && res.status(200).json(anime)
 }
 
 //@desc Update Anime
@@ -36,7 +39,9 @@ const getAnimeById = (req: Request, res: Response) => {
 const updateAnime = (req: Request, res: Response) => {
   const id = Number(req.params.id)
   const dataToUpdate: Anime = req.body
-  res.send(modifyAnime(id, dataToUpdate))
+  const updatedAnime = modifyAnime(id, dataToUpdate)
+
+  updatedAnime && res.status(200).json(updatedAnime)
 }
 
 //@desc Delete Anime
@@ -44,7 +49,9 @@ const updateAnime = (req: Request, res: Response) => {
 //@access public
 const deleteAnime = (req: Request, res: Response) => {
   const id = Number(req.params.id)
-  res.send(eraseAnime(id))
+  const deletedAnime = eraseAnime(id)
+
+  deletedAnime && res.status(204).json({})
 }
 
 export { getAllAnimes, createNewAnime, getAnimeById, updateAnime, deleteAnime }
