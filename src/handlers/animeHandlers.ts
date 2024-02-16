@@ -7,6 +7,7 @@ import {
   modifyAnime,
   eraseAnime
 } from '../services/animeServices'
+import validateAnimeData from '../utils'
 
 //@desc Get All Animes
 //@route GET /api/animes
@@ -19,8 +20,14 @@ const getAllAnimes = (req: Request, res: Response) => {
 //@route POST /api/animes
 //@access public
 const createNewAnime = (req: Request, res: Response) => {
-  const createdAnime = addAnime(req.body)
-  res.status(201).json(createdAnime)
+  try {
+    const newAnime = validateAnimeData(req.body)
+    const createdAnime = addAnime(newAnime)
+    res.status(201).json(createdAnime)
+  } catch (error) {
+    const err: Error = error as Error
+    res.status(400).json({ message: err.message })
+  }
 }
 
 //@desc Get Anime By Id
