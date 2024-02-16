@@ -28,8 +28,12 @@ const isStatus = (value: unknown): boolean => {
 //TODO: Validate every parse function to check what happens when
 // the argument gets a different type than the expected
 const parseName = (nameFromRequest: unknown): string => {
-  if (!isString(nameFromRequest)) {
-    throw new Error('Incorrect or missing name')
+  if (
+    nameFromRequest === null ||
+    !isString(nameFromRequest) ||
+    nameFromRequest === ''
+  ) {
+    throw new Error('The name must be a non-null, non-empty string!')
   }
 
   return String(nameFromRequest)
