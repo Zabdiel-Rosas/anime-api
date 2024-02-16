@@ -9,11 +9,7 @@ import {
 
 const router = Router()
 
-router.get('/', getAllAnimes)
-router.post('/', createNewAnime)
-
-router.get('/:id', getAnimeById)
-router.put('/:id', updateAnime)
-router.delete('/:id', deleteAnime)
+router.route('/').get(getAllAnimes).post(createNewAnime)
+router.route('/:id').get(getAnimeById).put(updateAnime).delete(deleteAnime)
 
 export default router
