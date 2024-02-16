@@ -52,19 +52,45 @@ const parseStudios = (studioFromRequest: unknown): string => {
 }
 
 //TODO: fix bug for argument when is not of type string[]
-const parseGenre = (genresFromRequest: string[]): Genre[] => {
-  genresFromRequest.forEach((genre) => {
-    if (!isString(genre) || !isGenre(genre)) {
-      throw new Error('Incorrect type of genre')
+const parseGenre = (genresFromRequest: unknown): Genre[] => {
+  const isArray = (arr: unknown): boolean => {
+    return Array.isArray(arr)
+  }
+
+  if (!isArray(genresFromRequest)) {
+    const err = new Error('The value passed is not an array!')
+    err.name = 'genre'
+
+    throw err
+  } else {
+    const arr = genresFromRequest as unknown[]
+
+    if (arr.length === 0) {
+      const err = new Error('The array must not be empty!')
+      err.name = 'Genre'
+      throw err
     }
-  })
+
+    arr.forEach((elem) => {
+      if (!isString(elem) || !isGenre(elem)) {
+        const err = new Error(
+          'One or more values from the array are not of type genre'
+        )
+        err.name = 'genre'
+
+        throw err
+      }
+    })
+  }
 
   return genresFromRequest as Genre[]
 }
 
-const parseScores = (scoreFromRequest: string): number => {
+const parseScores = (scoreFromRequest: unknown): number => {
   if (typeof scoreFromRequest !== 'number') {
-    throw new Error('Incorrect or missing score')
+    const err = new Error('the value passed is incorrect')
+    err.name = 'Score'
+    throw err
   }
 
   return Number(scoreFromRequest)
@@ -72,7 +98,9 @@ const parseScores = (scoreFromRequest: string): number => {
 
 const parseStatus = (statusFromRequest: unknown): Status => {
   if (!isString(statusFromRequest) || !isStatus(statusFromRequest)) {
-    throw new Error('Incorrect or missing status')
+    const err = new Error('the value is not of type status')
+    err.name = 'Status'
+    throw err
   }
 
   return statusFromRequest as Status
