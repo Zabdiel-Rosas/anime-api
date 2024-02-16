@@ -12,7 +12,7 @@ import validateAnimeData from '../utils'
 //@desc Get All Animes
 //@route GET /api/animes
 //@access public
-const getAllAnimes = (req: Request, res: Response) => {
+const getAllAnimes = (_req: Request, res: Response) => {
   res.status(200).json(getAnimes())
 }
 
@@ -26,7 +26,7 @@ const createNewAnime = (req: Request, res: Response) => {
     res.status(201).json(createdAnime)
   } catch (error) {
     const err: Error = error as Error
-    res.status(400).json({ message: err.message })
+    res.status(400).json({ property: err.name, message: err.message })
   }
 }
 
