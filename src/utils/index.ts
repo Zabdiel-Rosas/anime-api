@@ -66,7 +66,11 @@ const parseGenre = (genresFromRequest: unknown) => {
 }
 
 const parseScores = (scoreFromRequest: unknown) => {
-  if (!scoreFromRequest || !(typeof scoreFromRequest === 'number')) {
+  if (
+    !scoreFromRequest ||
+    !(typeof scoreFromRequest === 'number') ||
+    scoreFromRequest < 0
+  ) {
     throw new Error('Score must be a valid positive number!')
   }
 
