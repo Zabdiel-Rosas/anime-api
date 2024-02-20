@@ -1,5 +1,16 @@
-export type AnimeType = 'TV Series' | 'Movie' | 'OVA' | 'ONA' | 'Special'
-export type Status = 'Currently Airing' | 'Finished Airing' | 'Not Yet Airing'
+export enum AnimeType {
+  series = 'TV Series',
+  movie = 'Movie',
+  ova = 'OVA',
+  ona = 'ONA',
+  special = 'Special'
+}
+
+export enum Status {
+  currently = 'Currently Airing',
+  finished = 'Finished Airing',
+  notyet = 'Not Yet Airing'
+}
 
 export enum Genre {
   action = 'Action',
