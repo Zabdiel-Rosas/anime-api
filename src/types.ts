@@ -1,5 +1,3 @@
-// export type Status = 'Currently Airing' | 'Finished Airing' | 'Not Yet Airing'
-
 export enum AnimeType {
   series = 'TV Series',
   movie = 'Movie',
