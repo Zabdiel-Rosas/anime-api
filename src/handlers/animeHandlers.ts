@@ -26,7 +26,7 @@ const createNewAnime = (req: Request, res: Response) => {
     res.status(201).json(createdAnime)
   } catch (error) {
     const err: Error = error as Error
-    res.status(400).json({ property: err.name, message: err.message })
+    res.status(400).json({ message: err.message })
   }
 }
 

@@ -6,7 +6,7 @@ const isString = (value: unknown): boolean => {
 
 const isAnimeType = (value: unknown): boolean => {
   const keys: AnimeType[] = Object.values(AnimeType)
-  const typeValue: AnimeType = value as AnimeType
+  const typeValue = value as AnimeType
 
   return keys.includes(typeValue)
 }
@@ -25,65 +25,44 @@ const isStatus = (value: unknown): boolean => {
   return keys.includes(statusValue)
 }
 
-//TODO: Validate every parse function to check what happens when
-// the argument gets a different type than the expected
-const parseName = (nameFromRequest: unknown): string => {
-  if (!isString(nameFromRequest)) {
-    throw new Error('Incorrect or missing name')
+const parseName = (nameFromRequest: unknown) => {
+  if (!nameFromRequest || !(typeof nameFromRequest === 'string')) {
+    throw new Error('The name must be a non-null, non-empty string!')
   }
 
-  return String(nameFromRequest)
+  return nameFromRequest
 }
 
-const parseType = (typeFromRequest: unknown): AnimeType => {
+const parseType = (typeFromRequest: unknown) => {
   if (!isString(typeFromRequest) || !isAnimeType(typeFromRequest)) {
-    throw new Error('Incorrect or missing type')
+    throw new Error('The Type must be a non-empty valid Anime Type string!')
   }
 
   return typeFromRequest as AnimeType
 }
 
-const parseStudios = (studioFromRequest: unknown): string => {
-  if (!isString(studioFromRequest)) {
-    throw new Error('Incorrect or missing studios')
+const parseStudios = (studioFromRequest: unknown) => {
+  if (!studioFromRequest || !(typeof studioFromRequest === 'string')) {
+    throw new Error('The studio must be a non-empty string!')
   }
 
-  return String(studioFromRequest)
+  return studioFromRequest
 }
 
-//TODO: fix bug for argument when is not of type string[]
-const parseGenre = (genresFromRequest: unknown): Genre[] => {
-  const isArray = (arr: unknown): boolean => {
-    return Array.isArray(arr)
+const parseGenre = (genresFromRequest: unknown) => {
+  if (!Array.isArray(genresFromRequest) || genresFromRequest.length === 0) {
+    throw new Error('Genres must be a non-empty array')
   }
 
-  if (!isArray(genresFromRequest)) {
-    const err = new Error('The value passed is not an array!')
-    err.name = 'genre'
+  const genresArray: string[] = genresFromRequest
 
-    throw err
-  } else {
-    const arr = genresFromRequest as unknown[]
-
-    if (arr.length === 0) {
-      const err = new Error('The array must not be empty!')
-      err.name = 'Genre'
-      throw err
+  for (const elem of genresArray) {
+    if (!isString(elem) || !isGenre(elem)) {
+      throw new Error('One or more values from the array are not of type genre')
     }
-
-    arr.forEach((elem) => {
-      if (!isString(elem) || !isGenre(elem)) {
-        const err = new Error(
-          'One or more values from the array are not of type genre'
-        )
-        err.name = 'genre'
-
-        throw err
-      }
-    })
   }
 
-  return genresFromRequest as Genre[]
+  return genresArray as Genre[]
 }
 
 const parseScores = (scoreFromRequest: unknown): number => {
@@ -106,15 +85,8 @@ const parseStatus = (statusFromRequest: unknown): Status => {
   return statusFromRequest as Status
 }
 
-const validateAnimeData = (reqBody: unknown): NewAnime => {
-  const body = reqBody as {
-    name: string
-    type: string
-    studios: string
-    genre: string[]
-    scores: string
-    status: string
-  }
+const validateAnimeData = (reqBody: Record<string, unknown>): NewAnime => {
+  const body = reqBody
 
   const newAnime = {
     name: parseName(body.name),
