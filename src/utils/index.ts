@@ -65,21 +65,17 @@ const parseGenre = (genresFromRequest: unknown) => {
   return genresArray as Genre[]
 }
 
-const parseScores = (scoreFromRequest: unknown): number => {
-  if (typeof scoreFromRequest !== 'number') {
-    const err = new Error('the value passed is incorrect')
-    err.name = 'Score'
-    throw err
+const parseScores = (scoreFromRequest: unknown) => {
+  if (!scoreFromRequest || !(typeof scoreFromRequest === 'number')) {
+    throw new Error('Score must be a valid positive number!')
   }
 
-  return Number(scoreFromRequest)
+  return scoreFromRequest
 }
 
-const parseStatus = (statusFromRequest: unknown): Status => {
+const parseStatus = (statusFromRequest: unknown) => {
   if (!isString(statusFromRequest) || !isStatus(statusFromRequest)) {
-    const err = new Error('the value is not of type status')
-    err.name = 'Status'
-    throw err
+    throw new Error('Value passed must be a valid Anime Status!')
   }
 
   return statusFromRequest as Status
