@@ -20,7 +20,10 @@ const getOneAnime = (id: number): Anime | undefined => {
   return anime
 }
 
-const modifyAnime = (id: number, newData: Anime): Anime | undefined => {
+const modifyAnime = (
+  id: number,
+  newData: Partial<NewAnime>
+): Anime | undefined => {
   const index = animes.findIndex((a) => a.id === id)
 
   if (index !== -1) {

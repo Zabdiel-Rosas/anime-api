@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import { Anime } from '../types'
 import {
   getAnimes,
   addAnime,
@@ -7,7 +6,7 @@ import {
   modifyAnime,
   eraseAnime
 } from '../services/animeServices'
-import validateAnimeData from '../utils'
+import { validateAnimeData, validateUpdateData } from '../utils'
 
 //@desc Get All Animes
 //@route GET /api/animes
@@ -34,7 +33,7 @@ const createNewAnime = (req: Request, res: Response) => {
 //@route GET /api/animes/:id
 //@access public
 const getAnimeById = (req: Request, res: Response) => {
-  const id = Number(req.params.id)
+  const id = +req.params.id
   const anime = getOneAnime(id)
 
   anime && res.status(200).json(anime)
@@ -44,8 +43,8 @@ const getAnimeById = (req: Request, res: Response) => {
 //@route PUT /api/animes/:id
 //@access public
 const updateAnime = (req: Request, res: Response) => {
-  const id = Number(req.params.id)
-  const dataToUpdate: Anime = req.body
+  const id = +req.params.id
+  const dataToUpdate = validateUpdateData(req.body)
   const updatedAnime = modifyAnime(id, dataToUpdate)
 
   updatedAnime && res.status(200).json(updatedAnime)
