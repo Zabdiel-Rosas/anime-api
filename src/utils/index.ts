@@ -100,4 +100,40 @@ const validateAnimeData = (reqBody: Record<string, unknown>): NewAnime => {
   return newAnime
 }
 
-export default validateAnimeData
+//TODO: Test validateUpdateData functionality with postman
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const fieldToUpdate: Record<string, (value: unknown) => any> = {
+  name: parseName,
+  type: parseType,
+  studios: parseStudios,
+  genre: parseGenre,
+  scores: parseScores,
+  status: parseStatus
+}
+
+const parseFunction = (field: unknown) => {
+  const key = String(field)
+
+  if (Object.keys(fieldToUpdate).includes(key)) {
+    return fieldToUpdate[key](field)
+  }
+}
+
+const validateUpdateData = (
+  reqBody: Record<string, unknown>
+): Partial<NewAnime> => {
+  const updatedAnime: Partial<NewAnime> = {}
+
+  for (const property of Object.keys(reqBody)) {
+    if (property !== undefined) {
+      const key = property as keyof Partial<NewAnime>
+
+      updatedAnime[key] = parseFunction(property)
+    }
+  }
+
+  return updatedAnime
+}
+
+export { validateAnimeData, validateUpdateData }
